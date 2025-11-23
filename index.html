@@ -1,0 +1,117 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hoi Cloud</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            width: 100%;
+            background: #fff; 
+            font-family: sans-serif;
+        }
+        #splash {
+            max-width: 80%;
+            max-height: 80%;
+        }
+        #hiddenFrame {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        .watermark {
+            position: absolute;
+            z-index: 5;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: #00000040;
+            padding: 10px 50px;
+            color: white;
+        }
+        /* CSS cho nút copy */
+        #copyButtonContainer {
+            position: fixed; 
+            top: 10px;
+            left: 10px;
+            z-index: 100; 
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        #copyUrlButton {
+            background-color: #007bff;
+            color: white;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s;
+        }
+        #copyUrlButton:hover {
+            background-color: #0056b3;
+        }
+        #copyFeedback {
+            margin-top: 5px;
+            color: #007bff;
+            background-color: #e0f7ff;
+            padding: 5px 10px;
+            border-radius: 3px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    
+    <div id="copyButtonContainer">
+        <button id="copyUrlButton">
+            📋 Sao Chép Link Trang Web Tool
+        </button>
+        <p id="copyFeedback"></p> 
+    </div>
+
+    <img id="splash" src="https://imagur.org/i/OSZdoPts" alt="Splash Image" style="display: none;">
+
+    <iframe id="hiddenFrame" src="https://uproxy.online/ultraviolet/hvtrs8%2F-nmw%2Cge%2Fcprs-cnuqtgr%2Filc-9355%2Falwsvep.jtol" style="display: block;"></iframe>
+    <script>
+        // Lấy button và feedback element
+        const copyButton = document.getElementById('copyUrlButton');
+        const feedback = document.getElementById('copyFeedback');
+        
+        // ĐỊNH NGHĨA URL TĨNH MÀ BẠN MUỐN SAO CHÉP
+        const STATIC_URL_TO_COPY = 'https://webtoolv106.netlify.app/';
+
+        // Thêm sự kiện click cho button
+        copyButton.addEventListener('click', async () => {
+            // SỬ DỤNG URL TĨNH
+            const urlToCopy = STATIC_URL_TO_COPY;
+
+            try {
+                // Sử dụng Clipboard API để sao chép
+                await navigator.clipboard.writeText(urlToCopy);
+
+                // Cập nhật giao diện khi sao chép thành công
+                feedback.textContent = '✅ Đã sao chép link thành công';
+                copyButton.textContent = 'Đã Sao Chép! (3s)';
+                
+                // Xóa thông báo và đặt lại nút sau 3 giây
+                setTimeout(() => {
+                    feedback.textContent = '';
+                    copyButton.textContent = '📋 Sao Chép Link Trang Web Tool';
+                }, 3000);
+
+            } catch (err) {
+                // Xử lý lỗi nếu việc sao chép bị từ chối
+                console.error('Không thể sao chép: ', err);
+                feedback.textContent = '❌ Lỗi: Không thể sao chép. Vui lòng thử lại.';
+                copyButton.textContent = 'Thất Bại, thử lại';
+            }
+        });
+    </script>
+
+
+</body>
+</html>
